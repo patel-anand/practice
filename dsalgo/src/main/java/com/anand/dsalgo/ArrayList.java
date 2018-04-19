@@ -1,9 +1,6 @@
 package com.anand.dsalgo;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * Created by anand_patel on 4/19/18.
@@ -32,12 +29,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     public boolean contains(Object o) {
-        for (int i = 0; i < size; i++) {
-            if (arr[i].equals(o)) {
-                return true;
-            }
-        }
-        return false;
+        return (indexOf(o) != -1);
     }
 
     public Iterator<T> iterator() {
@@ -70,13 +62,8 @@ public class ArrayList<T> implements List<T> {
     }
 
     private void expand() {
-        final int newCapacity = capacity * 2;
-        final Object[] newArr = new Object[newCapacity];
-        for (int i = 0; i < size; i++) {
-            newArr[i] = arr[i];
-        }
-        capacity = newCapacity;
-        arr = newArr;
+        capacity = capacity * 2;
+        arr = Arrays.copyOf(arr, capacity);
     }
 
     private boolean full() {
@@ -131,7 +118,19 @@ public class ArrayList<T> implements List<T> {
     }
 
     public int indexOf(Object o) {
-        return 0;
+        if (o == null) {
+            for (int i = 0; i < size; i++) {
+                if (arr[i] == null)
+                    return i;
+            }
+        }
+        else {
+            for (int i = 0; i < size; i++) {
+                if (o.equals(arr[i]))
+                    return i;
+            }
+        }
+        return -1;
     }
 
     public int lastIndexOf(Object o) {
